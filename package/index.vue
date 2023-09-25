@@ -3,35 +3,35 @@
     <el-container style="height: 100%">
       <el-header style="border-bottom: 1px solid rgb(218 218 218);height: auto;">
         <div style="display: flex; padding: 10px 0px; justify-content: space-between;">
-          <div>
+          <div class="left-actions">
             <el-upload action="" :before-upload="openBpmn" style="margin-right: 10px; display:inline-block;">
               <el-tooltip effect="dark" content="加载xml" placement="bottom">
-                <el-button size="mini" icon="el-icon-folder-opened" />
+                <el-button :icon="FolderOpened" />
               </el-tooltip>
             </el-upload>
             <el-tooltip effect="dark" content="新建" placement="bottom">
-              <el-button size="mini" icon="el-icon-circle-plus" @click="newDiagram" />
+              <el-button :icon="CirclePlusFilled" @click="newDiagram" />
             </el-tooltip>
             <el-tooltip effect="dark" content="自适应屏幕" placement="bottom">
-              <el-button size="mini" icon="el-icon-rank" @click="fitViewport" />
+              <el-button :icon="Rank" @click="fitViewport" />
             </el-tooltip>
             <el-tooltip effect="dark" content="放大" placement="bottom">
-              <el-button size="mini" icon="el-icon-zoom-in" @click="zoomViewport(true)" />
+              <el-button :icon="ZoomIn" @click="zoomViewport(true)" />
             </el-tooltip>
             <el-tooltip effect="dark" content="缩小" placement="bottom">
-              <el-button size="mini" icon="el-icon-zoom-out" @click="zoomViewport(false)" />
+              <el-button :icon="ZoomOut" @click="zoomViewport(false)" />
             </el-tooltip>
             <el-tooltip effect="dark" content="后退" placement="bottom">
-              <el-button size="mini" icon="el-icon-back" @click="modeler.get('commandStack').undo()" />
+              <el-button :icon="Back" @click="modeler.get('commandStack').undo()" />
             </el-tooltip>
             <el-tooltip effect="dark" content="前进" placement="bottom">
-              <el-button size="mini" icon="el-icon-right" @click="modeler.get('commandStack').redo()" />
+              <el-button :icon="Right" @click="modeler.get('commandStack').redo()" />
             </el-tooltip>
           </div>
           <div>
-            <el-button size="mini" icon="el-icon-download" @click="saveXML(true)">下载xml</el-button>
-            <el-button size="mini" icon="el-icon-picture" @click="saveImg('svg', true)">下载svg</el-button>
-            <el-button size="mini" type="primary" @click="save">保存模型</el-button>
+            <el-button :icon="Download" @click="saveXML(true)">下载xml</el-button>
+            <el-button :icon="Picture" @click="saveImg('svg', true)">下载svg</el-button>
+            <el-button type="primary" @click="save">保存模型</el-button>
           </div>
         </div>
       </el-header>
@@ -57,6 +57,17 @@ import BpmData from './BpmData'
 import getInitStr from './flowable/init'
 // 引入flowable的节点文件
 import flowableModdle from './flowable/flowable.json'
+import {
+  FolderOpened,
+  CirclePlusFilled,
+  Rank,
+  ZoomIn,
+  ZoomOut,
+  Back,
+  Right,
+  Download,
+  Picture,
+} from '@element-plus/icons-vue'
 export default {
   name: 'WorkflowBpmnModeler',
   components: {
@@ -88,7 +99,16 @@ export default {
     return {
       modeler: null,
       taskList: [],
-      zoom: 1
+      zoom: 1,
+      FolderOpened,
+      CirclePlusFilled,
+      Rank,
+      ZoomIn,
+      ZoomOut,
+      Back,
+      Right,
+      Download,
+      Picture,
     }
   },
   watch: {
@@ -369,50 +389,12 @@ export default {
   .djs-container svg {
     min-height: 650px;
   }
-
-  // .highlight.djs-shape .djs-visual > :nth-child(1) {
-  //   fill: green !important;
-  //   stroke: green !important;
-  //   fill-opacity: 0.2 !important;
-  // }
-  // .highlight.djs-shape .djs-visual > :nth-child(2) {
-  //   fill: green !important;
-  // }
-  // .highlight.djs-shape .djs-visual > path {
-  //   fill: green !important;
-  //   fill-opacity: 0.2 !important;
-  //   stroke: green !important;
-  // }
-  // .highlight.djs-connection > .djs-visual > path {
-  //   stroke: green !important;
-  // }
-  // // .djs-connection > .djs-visual > path {
-  // //   stroke: orange !important;
-  // //   stroke-dasharray: 4px !important;
-  // //   fill-opacity: 0.2 !important;
-  // // }
-  // // .djs-shape .djs-visual > :nth-child(1) {
-  // //   fill: orange !important;
-  // //   stroke: orange !important;
-  // //   stroke-dasharray: 4px !important;
-  // //   fill-opacity: 0.2 !important;
-  // // }
-  // .highlight-todo.djs-connection > .djs-visual > path {
-  //   stroke: orange !important;
-  //   stroke-dasharray: 4px !important;
-  //   fill-opacity: 0.2 !important;
-  // }
-  // .highlight-todo.djs-shape .djs-visual > :nth-child(1) {
-  //   fill: orange !important;
-  //   stroke: orange !important;
-  //   stroke-dasharray: 4px !important;
-  //   fill-opacity: 0.2 !important;
-  // }
-  // .overlays-div {
-  //   font-size: 10px;
-  //   color: red;
-  //   width: 100px;
-  //   top: -20px !important;
-  // }
+  .left-actions {
+    display: flex;
+    align-items: center;
+    .el-upload-list {
+      display: none;
+    }
+  }
 }
 </style>
